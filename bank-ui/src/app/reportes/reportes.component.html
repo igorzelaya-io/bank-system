@@ -1,0 +1,46 @@
+<div class="header">
+  <input type="text" [(ngModel)]="clienteId" placeholder="Cliente ID" />
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="pickerFrom" placeholder="From Date" [(ngModel)]="from">
+    <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+    <mat-datepicker #pickerFrom></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="pickerTo" placeholder="To Date" [(ngModel)]="to">
+    <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+    <mat-datepicker #pickerTo></mat-datepicker>
+  </mat-form-field>
+
+  <button (click)="onSearch()">Buscar</button>
+  <button (click)="onDownloadPdf()">📄 PDF</button>
+</div>
+
+<!-- Report Table -->
+<div *ngIf="report">
+  <h3>Cliente: {{report.nombreCliente}} ({{report.clienteId}})</h3>
+
+  <div *ngFor="let cuenta of report.cuentas">
+    <h4>Cuenta: {{cuenta.numeroCuenta}} | Saldo Actual: {{cuenta.saldoActual}}</h4>
+
+    <table>
+      <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Tipo</th>
+        <th>Valor</th>
+        <th>Saldo Restante</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let mov of cuenta.movimientos">
+        <td>{{mov.fecha | date:'short'}}</td>
+        <td>{{mov.tipo}}</td>
+        <td>{{mov.valor}}</td>
+        <td>{{mov.saldoRestante}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

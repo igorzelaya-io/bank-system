@@ -1,0 +1,30 @@
+<div class="header">
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por # de cuenta..." />
+  <button (click)="onSearch()">Buscar</button>
+  <button (click)="onAddCuenta()">➕</button>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Numero Cuenta</th>
+    <th>Tipo</th>
+    <th>Saldo Inicial</th>
+    <th>Saldo Actual</th>
+    <th>Estado</th>
+    <th>Cliente ID</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let c of cuentas">
+    <td>{{c.id}}</td>
+    <td>{{c.numeroCuenta}}</td>
+    <td>{{c.tipo}}</td>
+    <td>{{c.saldoInicial}}</td>
+    <td>{{c.saldoActual}}</td>
+    <td>{{c.estado}}</td>
+    <td>{{c.clienteId}}</td>
+  </tr>
+  </tbody>
+</table>
