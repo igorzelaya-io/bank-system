@@ -3,8 +3,6 @@ package com.example.bankservice.infrastructure.persistence.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,7 +40,6 @@ public class CuentaEntity {
     @Column(nullable = false)
     private boolean estado;
 
-    @ManyToOne
-    @JoinColumn(name = "cliente_id", nullable = false)
-    private ClienteEntity cliente;
+    @Column(name = "cliente_id", nullable = false)
+    private UUID clienteId;
 }

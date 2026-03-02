@@ -1,4 +1,4 @@
-package com.example.bankservice.support.mother;
+package com.example.bankservice.support.mother.cliente;
 
 import com.example.bankservice.infrastructure.web.dto.request.UpdateClienteRequest;
 

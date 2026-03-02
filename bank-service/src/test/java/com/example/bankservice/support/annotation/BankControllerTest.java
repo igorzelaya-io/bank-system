@@ -15,4 +15,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Import(GlobalExceptionHandler.class)
 @AutoConfigureMockMvc(addFilters = false)
-public @interface BankControllerTest { }
+public @interface BankControllerTest {
+
+    Class<?>[] controllers() default {};
+}

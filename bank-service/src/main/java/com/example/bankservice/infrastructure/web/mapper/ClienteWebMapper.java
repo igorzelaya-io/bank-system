@@ -1,7 +1,7 @@
 package com.example.bankservice.infrastructure.web.mapper;
 
-import com.example.bankservice.application.port.in.CreateClienteCommand;
-import com.example.bankservice.application.port.in.UpdateClienteCommand;
+import com.example.bankservice.application.port.in.create.command.CreateClienteCommand;
+import com.example.bankservice.application.port.in.update.command.UpdateClienteCommand;
 import com.example.bankservice.domain.model.Cliente;
 import com.example.bankservice.domain.model.Persona;
 import com.example.bankservice.infrastructure.web.dto.request.UpdateClienteRequest;

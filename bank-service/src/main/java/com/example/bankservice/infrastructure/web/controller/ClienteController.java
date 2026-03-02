@@ -1,12 +1,13 @@
 package com.example.bankservice.infrastructure.web.controller;
 
 
-import com.example.bankservice.application.port.in.CreateClienteCommand;
-import com.example.bankservice.application.port.in.CreateClienteUseCase;
-import com.example.bankservice.application.port.in.DeleteClienteUseCase;
-import com.example.bankservice.application.port.in.PatchClienteUseCase;
-import com.example.bankservice.application.port.in.UpdateClienteCommand;
-import com.example.bankservice.application.port.in.UpdateClienteUseCase;
+import com.example.bankservice.application.port.in.create.CreateClienteUseCase;
+import com.example.bankservice.application.port.in.create.command.CreateClienteCommand;
+import com.example.bankservice.application.port.in.delete.DeleteClienteUseCase;
+import com.example.bankservice.application.port.in.get.FindClienteUseCase;
+import com.example.bankservice.application.port.in.patch.PatchClienteUseCase;
+import com.example.bankservice.application.port.in.update.UpdateClienteUseCase;
+import com.example.bankservice.application.port.in.update.command.UpdateClienteCommand;
 import com.example.bankservice.infrastructure.web.dto.request.CreateClienteRequest;
 import com.example.bankservice.infrastructure.web.dto.request.UpdateClienteRequest;
 import com.example.bankservice.infrastructure.web.dto.response.ClienteResponse;
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +40,17 @@ public class ClienteController {
 
     private final DeleteClienteUseCase deleteClienteUseCase;
 
+    private final FindClienteUseCase findClienteUseCase;
+
     private final ClienteWebMapper clienteWebMapper;
+
+    @GetMapping("/{clientId}")
+    public ResponseEntity<ClienteResponse> findByClientId(@PathVariable("clientId") String clientId) {
+        return ResponseEntity.ok()
+                .body(clienteWebMapper.toResponse(findClienteUseCase
+                        .findByClienteId(clientId)));
+    }
+
 
     @PostMapping
     public ResponseEntity<ClienteResponse> create(@Valid @RequestBody CreateClienteRequest request) {

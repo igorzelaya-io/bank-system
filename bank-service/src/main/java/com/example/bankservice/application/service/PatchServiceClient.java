@@ -1,6 +1,6 @@
 package com.example.bankservice.application.service;
 
-import com.example.bankservice.application.port.in.PatchClienteUseCase;
+import com.example.bankservice.application.port.in.patch.PatchClienteUseCase;
 import com.example.bankservice.application.port.out.ClienteRepositoryPort;
 import com.example.bankservice.domain.exception.ResourceNotFoundException;
 import com.example.bankservice.domain.model.Cliente;

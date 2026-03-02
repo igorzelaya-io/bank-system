@@ -1,10 +1,10 @@
 package com.example.bankservice.domain.model;
 
-import com.example.bankservice.application.port.in.UpdateClienteCommand;
+import com.example.bankservice.application.port.in.update.command.UpdateClienteCommand;
 
 import java.util.UUID;
 
-public record Cliente(
+public record Cliente (
         UUID id,
         String clienteId,
         String passwordHash,

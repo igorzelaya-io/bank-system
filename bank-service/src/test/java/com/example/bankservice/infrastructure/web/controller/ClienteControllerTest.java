@@ -1,11 +1,12 @@
 package com.example.bankservice.infrastructure.web.controller;
 
-import com.example.bankservice.application.port.in.CreateClienteCommand;
-import com.example.bankservice.application.port.in.CreateClienteUseCase;
-import com.example.bankservice.application.port.in.DeleteClienteUseCase;
-import com.example.bankservice.application.port.in.PatchClienteUseCase;
-import com.example.bankservice.application.port.in.UpdateClienteCommand;
-import com.example.bankservice.application.port.in.UpdateClienteUseCase;
+import com.example.bankservice.application.port.in.create.CreateClienteUseCase;
+import com.example.bankservice.application.port.in.create.command.CreateClienteCommand;
+import com.example.bankservice.application.port.in.delete.DeleteClienteUseCase;
+import com.example.bankservice.application.port.in.get.FindClienteUseCase;
+import com.example.bankservice.application.port.in.patch.PatchClienteUseCase;
+import com.example.bankservice.application.port.in.update.UpdateClienteUseCase;
+import com.example.bankservice.application.port.in.update.command.UpdateClienteCommand;
 import com.example.bankservice.domain.exception.ResourceNotFoundException;
 import com.example.bankservice.domain.model.Cliente;
 import com.example.bankservice.infrastructure.web.dto.request.CreateClienteRequest;
@@ -13,24 +14,22 @@ import com.example.bankservice.infrastructure.web.dto.request.UpdateClienteReque
 import com.example.bankservice.infrastructure.web.dto.response.ClienteResponse;
 import com.example.bankservice.infrastructure.web.mapper.ClienteWebMapper;
 import com.example.bankservice.support.annotation.BankControllerTest;
-import com.example.bankservice.support.mother.ClienteMother;
-import com.example.bankservice.support.mother.ClienteRequestMother;
-import com.example.bankservice.support.mother.ClienteResponseMother;
-import com.example.bankservice.support.mother.CreateClienteCommandMother;
-import com.example.bankservice.support.mother.UpdateClienteCommandMother;
-import com.example.bankservice.support.mother.UpdateClienteMother;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.example.bankservice.support.mother.cliente.ClienteMother;
+import com.example.bankservice.support.mother.cliente.ClienteRequestMother;
+import com.example.bankservice.support.mother.cliente.ClienteResponseMother;
+import com.example.bankservice.support.mother.cliente.CreateClienteCommandMother;
+import com.example.bankservice.support.mother.cliente.UpdateClienteCommandMother;
+import com.example.bankservice.support.mother.cliente.UpdateClienteMother;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -39,13 +38,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @BankControllerTest
 @WebMvcTest(controllers = ClienteController.class)
-class ClienteControllerTest {
+class ClienteControllerTest extends AbstractControllerTest {
 
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
+    @MockBean
+    private FindClienteUseCase findClienteUseCase;
 
     @MockBean
     private CreateClienteUseCase createClienteUseCase;
@@ -61,6 +57,37 @@ class ClienteControllerTest {
 
     @MockBean
     private ClienteWebMapper clienteWebMapper;
+
+    @Test
+    void findCliente_returns200_whenExists() throws Exception {
+
+        Cliente cliente = ClienteMother.validCliente();
+        ClienteResponse response = ClienteResponseMother.validResponse();
+
+        when(findClienteUseCase.findByClienteId("CLI-001"))
+                .thenReturn(cliente);
+
+        when(clienteWebMapper.toResponse(cliente))
+                .thenReturn(response);
+
+        mockMvc.perform(get("/api/v1/clientes/CLI-001"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.clienteId").value(response.clienteId()))
+                .andExpect(jsonPath("$.persona.identificacion")
+                        .value(response.persona().identificacion()));
+    }
+
+    @Test
+    void findCliente_returns404_whenNotFound() throws Exception {
+
+        when(findClienteUseCase.findByClienteId("NOT_EXIST"))
+                .thenThrow(new ResourceNotFoundException("Cliente not found"));
+
+        mockMvc.perform(get("/api/v1/clientes/NOT_EXIST"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.title").value("Resource not found"))
+                .andExpect(jsonPath("$.detail").value("Cliente not found"));
+    }
 
     @Test
     void createCliente_returns201() throws Exception {

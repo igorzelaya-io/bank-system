@@ -1,7 +1,7 @@
 package com.example.bankservice.application.service;
 
-import com.example.bankservice.application.port.in.UpdateClienteCommand;
-import com.example.bankservice.application.port.in.UpdateClienteUseCase;
+import com.example.bankservice.application.port.in.update.command.UpdateClienteCommand;
+import com.example.bankservice.application.port.in.update.UpdateClienteUseCase;
 import com.example.bankservice.application.port.out.ClienteRepositoryPort;
 import com.example.bankservice.application.port.out.PasswordHashserPort;
 import com.example.bankservice.domain.exception.ResourceNotFoundException;

@@ -1,7 +1,7 @@
 package com.example.bankservice.application.service;
 
-import com.example.bankservice.application.port.in.CreateClienteCommand;
-import com.example.bankservice.application.port.in.CreateClienteUseCase;
+import com.example.bankservice.application.port.in.create.command.CreateClienteCommand;
+import com.example.bankservice.application.port.in.create.CreateClienteUseCase;
 import com.example.bankservice.application.port.out.ClienteRepositoryPort;
 import com.example.bankservice.application.port.out.PasswordHashserPort;
 import com.example.bankservice.domain.exception.DuplicateResourceException;

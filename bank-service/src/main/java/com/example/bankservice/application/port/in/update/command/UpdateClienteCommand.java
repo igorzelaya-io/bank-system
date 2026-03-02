@@ -1,4 +1,4 @@
-package com.example.bankservice.application.port.in;
+package com.example.bankservice.application.port.in.update.command;
 
 public record UpdateClienteCommand(
         String nombre,

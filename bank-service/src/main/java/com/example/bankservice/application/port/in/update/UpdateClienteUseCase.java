@@ -1,5 +1,6 @@
-package com.example.bankservice.application.port.in;
+package com.example.bankservice.application.port.in.update;
 
+import com.example.bankservice.application.port.in.update.command.UpdateClienteCommand;
 import com.example.bankservice.domain.model.Cliente;
 
 public interface UpdateClienteUseCase {

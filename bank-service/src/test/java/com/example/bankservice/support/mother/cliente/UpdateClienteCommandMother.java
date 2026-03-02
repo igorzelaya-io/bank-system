@@ -1,6 +1,6 @@
-package com.example.bankservice.support.mother;
+package com.example.bankservice.support.mother.cliente;
 
-import com.example.bankservice.application.port.in.UpdateClienteCommand;
+import com.example.bankservice.application.port.in.update.command.UpdateClienteCommand;
 
 public final class UpdateClienteCommandMother {
 

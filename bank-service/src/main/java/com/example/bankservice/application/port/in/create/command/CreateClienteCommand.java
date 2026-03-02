@@ -1,4 +1,4 @@
-package com.example.bankservice.application.port.in;
+package com.example.bankservice.application.port.in.create.command;
 
 public record CreateClienteCommand(
         String nombre,
