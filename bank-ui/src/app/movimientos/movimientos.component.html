@@ -1,0 +1,28 @@
+<div class="header">
+  <input type="text" [(ngModel)]="clienteId" placeholder="Buscar por Cliente ID..." />
+  <button (click)="onSearch()">Buscar</button>
+  <button (click)="onAddMovimiento()">➕</button>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Cuenta ID</th>
+    <th>Fecha</th>
+    <th>Tipo</th>
+    <th>Valor</th>
+    <th>Saldo Restante</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let m of movimientos">
+    <td>{{m.id}}</td>
+    <td>{{m.cuentaId}}</td>
+    <td>{{m.fecha}}</td>
+    <td>{{m.tipo}}</td>
+    <td>{{m.valor}}</td>
+    <td>{{m.saldoRestante}}</td>
+  </tr>
+  </tbody>
+</table>

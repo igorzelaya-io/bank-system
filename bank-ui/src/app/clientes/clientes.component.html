@@ -1,0 +1,22 @@
+<div class="header">
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar cliente..." />
+  <button (click)="onSearch()">Buscar</button>
+  <button (click)="onAddCliente()">➕</button>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Nombre</th>
+    <th>Email</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let c of clientes">
+    <td>{{c.id}}</td>
+    <td>{{c.nombre}}</td>
+    <td>{{c.email}}</td>
+  </tr>
+  </tbody>
+</table>
