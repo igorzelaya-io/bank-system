@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 
 @Component
@@ -58,5 +59,13 @@ public class CuentaRepositoryPortAdapter implements CuentaRepositoryPort {
                 .stream()
                 .map(cuentaMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public List<Cuenta> findAllByKeyword(String keyword) {
+        return cuentaJpaRepository.findAllByNumeroCuentaContainingIgnoreCase(keyword)
+                .stream()
+                .map(cuentaMapper::toDomain)
+                .collect(Collectors.toList());
     }
 }

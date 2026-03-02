@@ -8,6 +8,9 @@ import com.example.bankservice.infrastructure.persistence.repository.MovimientoJ
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class MovimientoRepositoryPortAdapter implements MovimientoRepositoryPort {
@@ -20,5 +23,17 @@ public class MovimientoRepositoryPortAdapter implements MovimientoRepositoryPort
     public Movimiento save(Movimiento movimiento) {
         final MovimientoEntity entity = movimientoMapper.toEntity(movimiento);
         return movimientoMapper.toDomain(movimientoJpaRepository.save(entity));
+    }
+
+    @Override
+    public List<Movimiento> findAllByCuentaId(UUID clientId) {
+        return movimientoJpaRepository.findAllByCuentaId(clientId);
+    }
+
+    @Override
+    public List<Movimiento> findAll() {
+        return movimientoJpaRepository.findAll()
+                .stream().map(movimientoMapper::toDomain)
+                .toList();
     }
 }

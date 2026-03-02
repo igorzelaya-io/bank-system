@@ -19,6 +19,12 @@ public class FindCuentaService implements FindCuentaUseCase {
     public List<Cuenta> findAll() {
         return cuentaRepository.findAll();
     }
+
+    @Override
+    public List<Cuenta> findAllByKeyword(String keyword) {
+        return cuentaRepository.findAllByKeyword(keyword);
+    }
+
     @Override
     public Cuenta findByNumeroCuenta(String numeroCuenta) {
         return cuentaRepository.findByNumeroCuenta(numeroCuenta)

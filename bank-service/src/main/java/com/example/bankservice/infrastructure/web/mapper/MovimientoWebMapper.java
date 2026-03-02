@@ -7,6 +7,8 @@ import com.example.bankservice.infrastructure.web.dto.response.MovimientoRespons
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 @RequiredArgsConstructor
 public class MovimientoWebMapper {
@@ -28,5 +30,9 @@ public class MovimientoWebMapper {
                 movimiento.getValor(),
                 movimiento.getSaldoRestante()
         );
+    }
+
+    public List<MovimientoResponse> toResponseList(List<Movimiento> movimientos) {
+        return movimientos.stream().map(this::toResponse).toList();
     }
 }

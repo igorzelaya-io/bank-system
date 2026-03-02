@@ -20,4 +20,6 @@ public interface CuentaRepositoryPort {
 
     List<Cuenta> findAll();
 
+    List<Cuenta> findAllByKeyword(String keyword);
+
 }

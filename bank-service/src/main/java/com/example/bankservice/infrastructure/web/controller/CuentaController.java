@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -79,14 +80,13 @@ public class CuentaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CuentaResponse>> findAll() {
+    public ResponseEntity<List<CuentaResponse>> findAll(@RequestParam(required = false, value = "search")
+                                                            final String keyword) {
 
-        List<CuentaResponse> response =
-                findCuentaUseCase.findAll()
-                        .stream()
-                        .map(mapper::toResponse)
-                        .toList();
-
-        return ResponseEntity.ok(response);
+        if(keyword == null) {
+            final List<CuentaResponse> response = mapper.toResponseList(findCuentaUseCase.findAll());
+            return ResponseEntity.ok(response);
+        }
+        return ResponseEntity.ok(mapper.toResponseList(findCuentaUseCase.findAllByKeyword(keyword)));
     }
 }
