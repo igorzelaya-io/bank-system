@@ -14,4 +14,6 @@ public interface CuentaJpaRepository extends JpaRepository<CuentaEntity, UUID> {
     Optional<CuentaEntity> findByNumeroCuenta(String numeroCuenta);
 
     List<CuentaEntity> findByClienteId(UUID clienteId);
+
+    List<CuentaEntity> findAllByNumeroCuentaContainingIgnoreCase(String keyword);
 }

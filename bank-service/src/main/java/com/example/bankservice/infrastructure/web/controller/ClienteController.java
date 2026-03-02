@@ -27,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/clientes")
@@ -43,6 +45,17 @@ public class ClienteController {
     private final FindClienteUseCase findClienteUseCase;
 
     private final ClienteWebMapper clienteWebMapper;
+
+    @GetMapping
+    public ResponseEntity<List<ClienteResponse>> findByKeyword(@RequestParam(required = false, value = "search")
+                                                    String keyword) {
+        if(keyword == null){
+            return ResponseEntity.ok().body(clienteWebMapper.toResponseList(findClienteUseCase.findAll()));
+        }
+        return ResponseEntity.ok().body(clienteWebMapper.toResponseList(findClienteUseCase.findAllByKeyword(keyword)));
+
+    }
+
 
     @GetMapping("/{clientId}")
     public ResponseEntity<ClienteResponse> findByClientId(@PathVariable("clientId") String clientId) {

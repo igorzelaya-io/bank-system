@@ -2,6 +2,7 @@ package com.example.bankservice.application.port.out;
 
 import com.example.bankservice.domain.model.Cliente;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ClienteRepositoryPort {
@@ -14,5 +15,9 @@ public interface ClienteRepositoryPort {
     Cliente save(Cliente cliente);
 
     Optional<Cliente> findById(String id);
+
+    List<Cliente> findAll();
+
+    List<Cliente> findAllByKeyword(String keyword);
 
 }

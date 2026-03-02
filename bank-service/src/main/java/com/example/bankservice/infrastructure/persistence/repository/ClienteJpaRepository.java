@@ -4,6 +4,7 @@ import com.example.bankservice.infrastructure.persistence.entity.ClienteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -14,6 +15,6 @@ public interface ClienteJpaRepository extends JpaRepository<ClienteEntity, UUID>
 
     Optional<ClienteEntity> findByClienteId(String clienteId);
 
-    void deleteByClienteId(String clienteId);
+    List<ClienteEntity> findAllByClienteIdContainingIgnoreCase(String keyword);
 
 }

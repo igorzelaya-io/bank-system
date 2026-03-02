@@ -8,6 +8,8 @@ import com.example.bankservice.infrastructure.web.dto.request.UpdateCuentaReques
 import com.example.bankservice.infrastructure.web.dto.response.CuentaResponse;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface CuentaWebMapper {
 
@@ -16,5 +18,7 @@ public interface CuentaWebMapper {
     UpdateCuentaCommand toUpdateCommand(UpdateCuentaRequest request);
 
     CuentaResponse toResponse(Cuenta cuenta);
+
+    List<CuentaResponse> toResponseList(List<Cuenta> cuentas);
 
 }

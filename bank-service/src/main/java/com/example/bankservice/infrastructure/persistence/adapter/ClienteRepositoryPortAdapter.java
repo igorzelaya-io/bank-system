@@ -9,6 +9,7 @@ import com.example.bankservice.infrastructure.persistence.repository.PersonaJpaR
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -47,5 +48,20 @@ public class ClienteRepositoryPortAdapter implements ClienteRepositoryPort {
     public Optional<Cliente> findById(String id) {
         return clienteJpaRepository.findByClienteId(id)
                 .map(clienteMapper::toDomain);
+    }
+
+    @Override
+    public List<Cliente> findAll() {
+        return clienteJpaRepository.findAll()
+                .stream().map(clienteMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    public List<Cliente> findAllByKeyword(String keyword) {
+        return clienteJpaRepository.findAllByClienteIdContainingIgnoreCase(keyword)
+                .stream()
+                .map(clienteMapper::toDomain)
+                .toList();
     }
 }

@@ -6,8 +6,10 @@ import java.util.List;
 
 public interface FindCuentaUseCase {
 
+    Cuenta findByNumeroCuenta(String numeroCuenta);
+
     List<Cuenta> findAll();
 
-    Cuenta findByNumeroCuenta(String numeroCuenta);
+    List<Cuenta> findAllByKeyword(String keyword);
 
 }

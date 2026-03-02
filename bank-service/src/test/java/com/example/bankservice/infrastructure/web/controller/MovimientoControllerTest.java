@@ -1,6 +1,7 @@
 package com.example.bankservice.infrastructure.web.controller;
 
 import com.example.bankservice.application.port.in.create.CreateMovimientoUseCase;
+import com.example.bankservice.application.port.in.get.FindMovimientoUseCase;
 import com.example.bankservice.domain.model.Movimiento;
 import com.example.bankservice.infrastructure.web.dto.request.CreateMovimientoRequest;
 import com.example.bankservice.infrastructure.web.dto.response.MovimientoResponse;
@@ -27,6 +28,9 @@ class MovimientoControllerTest extends AbstractControllerTest {
 
     @MockBean
     private CreateMovimientoUseCase createMovimientoUseCase;
+
+    @MockBean
+    private FindMovimientoUseCase findMovimientoUseCase;
 
     @MockBean
     private MovimientoWebMapper mapper;
