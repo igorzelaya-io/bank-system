@@ -11,6 +11,6 @@ export class MovimientosService {
   constructor(private http: HttpClient) {}
 
   searchMovimientos(clienteId: string): Observable<any[]> {
-    return this.http.get<any[]>(`/api/movimientos?clienteId=${clienteId}`);
+    return this.http.get<any[]>(`/api/v1/movimientos?clienteId=${clienteId}`);
   }
 }
