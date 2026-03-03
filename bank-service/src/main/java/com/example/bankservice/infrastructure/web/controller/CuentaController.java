@@ -82,7 +82,6 @@ public class CuentaController {
     @GetMapping
     public ResponseEntity<List<CuentaResponse>> findAll(@RequestParam(required = false, value = "search")
                                                             final String keyword) {
-
         if(keyword == null) {
             final List<CuentaResponse> response = mapper.toResponseList(findCuentaUseCase.findAll());
             return ResponseEntity.ok(response);

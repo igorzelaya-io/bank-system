@@ -13,12 +13,13 @@ export class ReportesService {
   getReport(clienteId: string, from: Date, to: Date): Observable<any> {
     const fromStr = from.toISOString();
     const toStr = to.toISOString();
-    return this.http.get<any>(`/api/report?clienteId=${clienteId}&from=${fromStr}&to=${toStr}`);
+    return this.http.get<any>(`/api/v1/report?clienteId=${clienteId}&from=${fromStr}&to=${toStr}`);
   }
 
   getReportPdf(clienteId: string, from: Date, to: Date): Observable<Blob> {
     const fromStr = from.toISOString();
     const toStr = to.toISOString();
-    return this.http.get(`/api/report/pdf?clienteId=${clienteId}&from=${fromStr}&to=${toStr}`, { responseType: 'blob' });
+    return this.http.get(`/api/v1/report/pdf?clienteId=${clienteId}&from=${fromStr}&to=${toStr}`,
+      { responseType: 'blob' });
   }
 }

@@ -10,6 +10,6 @@ export class ClientesService {
   constructor(private http: HttpClient) {}
 
   searchClientes(term: string): Observable<any[]> {
-    return this.http.get<any[]>(`/api/clientes?search=${term}`);
+    return this.http.get<any[]>(`/api/v1/clientes?search=${term}`);
   }
 }

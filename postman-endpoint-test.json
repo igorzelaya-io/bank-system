@@ -1,0 +1,163 @@
+{
+  "info": {
+    "name": "Bank System API",
+    "_postman_id": "f9b8e2d7-1234-4567-89ab-abcdef123456",
+    "description": "Full API collection for bank-service including all CRUD endpoints for Clientes and Cuentas",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Clientes",
+      "item": [
+        {
+          "name": "List/Search Clientes",
+          "request": {
+            "method": "GET",
+            "url": "{{bankServiceUrl}}/api/v1/clientes"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": ["pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });"]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Cliente by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{bankServiceUrl}}/api/v1/clientes/{{clienteId}}"
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": ["pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });"]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Create Cliente",
+          "request": {
+            "method": "POST",
+            "url": "{{bankServiceUrl}}/api/v1/clientes",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"clienteId\":\"CLI-003\",\"password\":\"1234\",\"estado\":true,\"nombre\":\"Luis Gomez\",\"genero\":\"M\",\"edad\":35,\"identificacion\":\"987654\",\"direccion\":\"Calle 3\",\"telefono\":\"555-6789\"}"
+            }
+          },
+          "event": [
+            {
+              "listen": "test",
+              "script": { "exec": ["pm.test(\"Status 201\", function () { pm.response.to.have.status(201); });"] }
+            }
+          ]
+        },
+        {
+          "name": "Update Cliente",
+          "request": {
+            "method": "PUT",
+            "url": "{{bankServiceUrl}}/api/v1/clientes/{{clienteId}}",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"password\":\"1234\",\"estado\":true,\"nombre\":\"Luis Gomez Updated\",\"genero\":\"M\",\"edad\":36,\"identificacion\":\"987654\",\"direccion\":\"Calle 3 Updated\",\"telefono\":\"555-6789\"}"
+            }
+          },
+          "event": [
+            { "listen": "test", "script": { "exec": ["pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });"] } }
+          ]
+        },
+        {
+          "name": "Patch Cliente Estado",
+          "request": {
+            "method": "PATCH",
+            "url": "{{bankServiceUrl}}/api/v1/clientes/{{clienteId}}/estado?enabled=true"
+          },
+          "event": [
+            { "listen": "test", "script": { "exec": ["pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });"] } }
+          ]
+        },
+        {
+          "name": "Delete Cliente",
+          "request": {
+            "method": "DELETE",
+            "url": "{{bankServiceUrl}}/api/v1/clientes/{{clienteId}}"
+          },
+          "event": [
+            { "listen": "test", "script": { "exec": ["pm.test(\"Status 204\", function () { pm.response.to.have.status(204); });"] } }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Cuentas",
+      "item": [
+        {
+          "name": "Search Cuentas by ClienteId",
+          "request": {
+            "method": "GET",
+            "url": "{{bankServiceUrl}}/api/v1/cuentas?clienteId={{clienteId}}"
+          },
+          "event": [
+            { "listen": "test", "script": { "exec": ["pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });"] } }
+          ]
+        },
+        {
+          "name": "Get Cuenta by ID",
+          "request": {
+            "method": "GET",
+            "url": "{{bankServiceUrl}}/api/v1/cuentas/{{cuentaId}}"
+          },
+          "event": [
+            { "listen": "test", "script": { "exec": ["pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });"] } }
+          ]
+        },
+        {
+          "name": "Create Cuenta",
+          "request": {
+            "method": "POST",
+            "url": "{{bankServiceUrl}}/api/v1/cuentas",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"numeroCuenta\":\"ACC-003\",\"tipo\":\"AHORROS\",\"saldoInicial\":1000.00,\"clienteId\":\"{{clienteId}}\"}"
+            }
+          },
+          "event": [
+            { "listen": "test", "script": { "exec": ["pm.test(\"Status 201\", function () { pm.response.to.have.status(201); });"] } }
+          ]
+        },
+        {
+          "name": "Update Cuenta",
+          "request": {
+            "method": "PUT",
+            "url": "{{bankServiceUrl}}/api/v1/cuentas/{{cuentaId}}",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"tipo\":\"CORRIENTE\",\"estado\":true}"
+            }
+          },
+          "event": [
+            { "listen": "test", "script": { "exec": ["pm.test(\"Status 200\", function () { pm.response.to.have.status(200); });"] } }
+          ]
+        },
+        {
+          "name": "Delete Cuenta",
+          "request": {
+            "method": "DELETE",
+            "url": "{{bankServiceUrl}}/api/v1/cuentas/{{cuentaId}}"
+          },
+          "event": [
+            { "listen": "test", "script": { "exec": ["pm.test(\"Status 204\", function () { pm.response.to.have.status(204); });"] } }
+          ]
+        }
+      ]
+    }
+  ]
+}

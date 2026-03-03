@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {CuentaResponse} from '../../models/CuentaResponse';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CuentasService {
-  constructor(private http: HttpClient) {}
-  searchCuentas(term: string): Observable<any[]> {
-    // Uses the same proxy config as before
-    return this.http.get<any[]>(`/api/cuentas?search=${term}`);
+  constructor(private http: HttpClient) {
+
+  }
+  searchCuentas(term: string): Observable<CuentaResponse[]> {
+    return this.http.get<CuentaResponse[]>(`/api/v1/cuentas?search=${term}`);
   }
 }
